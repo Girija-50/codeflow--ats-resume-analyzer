@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: codeflow
+    runtime: node
+    plan: starter
+    buildCommand: npm ci --include=dev && npm run lint && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: false
+    disk:
+      name: codeflow-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: 24.15.0
+      - key: DATA_DIR
+        value: /var/data
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
