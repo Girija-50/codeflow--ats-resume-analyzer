@@ -15,8 +15,8 @@ Run `npm run lint` and `npm run build` to validate and build the app.
 
 ## Deploy to Render
 
-The included `render.yaml` configures a paid Render web service with a persistent disk for accounts and saved reports. Creating the service and disk incurs ongoing hosting charges. Render generates `JWT_SECRET`; set `GEMINI_API_KEY` in the service's Environment settings to enable Gemini features. Do not commit `.env` files, `.data`, or logs.
+The included `render.yaml` configures a free Render web service without a persistent disk or paid resources. Render generates `JWT_SECRET`; set `GEMINI_API_KEY` in the service's Environment settings to enable Gemini features. Do not commit `.env` files, `.data`, or logs.
 
-To deploy, push the project to a Git repository, then create a Render Blueprint from that repository and apply the `render.yaml` configuration. The service exposes `/api/health` for its health check.
+To deploy, push the project to a Git repository, then create a Render Blueprint from that repository and apply the `render.yaml` configuration. The service exposes `/api/health` for its health check. Free services may spin down when idle, so the first request afterward can take time.
 
-The app stores account and resume data in a JSON file on the configured data disk. Back up that disk regularly; this storage is intended for a single server instance.
+The free deployment stores account and resume data in temporary local storage. Render can discard this data on restarts, redeploys, and instance replacement. Do not use this free configuration for important or sensitive resume data; choose persistent storage and a paid plan before relying on it.
